@@ -8,6 +8,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenRefreshView
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from drf_yasg.utils import swagger_auto_schema
 
 class MessageAPI(generics.ListCreateAPIView):
     queryset = Message.objects.all()
@@ -20,7 +21,6 @@ class MessageAPI(generics.ListCreateAPIView):
             return [IsAuthenticated(),]
         
         
-
     def get(self, request):
         try:
             messages = Message.objects.filter(user=request.user.id)
@@ -78,7 +78,7 @@ class LoginUser(generics.CreateAPIView):
             user = User.objects.get(username=username, password=password)
         except User.DoesNotExist:
             return Response({'error': 'username or password does not match'}, status.HTTP_401_UNAUTHORIZED)
-        #response =  super().post(request, *args, **kwargs)
+        
         new_data = {}
         refresh = RefreshToken.for_user(user)
 
