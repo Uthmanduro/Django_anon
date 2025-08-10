@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
-        fields = '__all__'
+        fields = ['content']
 
 
 class UserSerializer(serializers.ModelSerializer):

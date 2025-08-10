@@ -21,13 +21,14 @@ class MessageAPI(generics.ListCreateAPIView):
             return [IsAuthenticated(),]
         
         
-    def get(self, request):
+    def get(self, request, username=None):
         try:
             messages = Message.objects.filter(user=request.user.id)
         except User.DoesNotExist:
             return Response({'error': 'Not found'}, status.HTTP_404_NOT_FOUND)
         serializer = MessageSerializer(messages, many=True)
         return Response(serializer.data, status.HTTP_200_OK)
+
     
     def post(self, request, username, *args, **kwargs):
         try:
