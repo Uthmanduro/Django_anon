@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-y%^7d%^(714c#uqa$-l1=8od%)ho#2b5zq)+k3b++089id7rt('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'message',
     'drf_yasg',
+    'corsheaders',
 ]
 
 REST_FRAMEWORK = {
@@ -59,6 +60,7 @@ SIMPLE_JWT = {
 }
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -125,7 +127,6 @@ SWAGGER_SETTINGS = {
     "relative_paths": False,
     "DISPLAY_OPERATION_ID": False,
     "SECURITY_DEFINITIONS": {
-        "Basic": {"type": "basic"},
         "Bearer": {"type": "apiKey", "name": "Authorization", "in": "header"},
     },
 }
@@ -160,3 +161,9 @@ AUTHENTICATION_BACKENDS = [
 
 # Let WhiteNoise serve compressed files
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+
